@@ -1,25 +1,51 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Página Sencilla</title>
-  <link rel="stylesheet" href="estilos.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Habituum - Crea y Comparte Hábitos</title>
+  <link rel="stylesheet" href="estilos_inicio.css" />
 </head>
 <body>
 
   <header>
-    <h1>Bienvenido a Habbitum</h1>
+    <div class="logo">Habituum</div>
+    <nav>
+      <a href="#">Explorar</a>
+      <a href="#">Iniciar sesión</a>
+      <a href="registro.html">Registrarse</a>
+    </nav>
   </header>
 
   <main>
-    <p>Tu app de tracking de habitos favorita.</p>
-    <button>Haz clic aquí para comenzar</button>
+    <section class="hero">
+      <div class="hero-slider">
+        <img src="/docs/web/img/banner1.jpg" class="slide active" alt="Hábito saludable 1">
+        <img src="/docs/web/img/banner2.jpg" class="slide" alt="Hábito saludable 2">
+        <img src="/docs/web/img/banner3.jpg" class="slide" alt="Hábito saludable 3">
+      </div>
+      <div class="hero-text">
+        <h1>Construye hábitos, comparte progreso</h1>
+        <p>Habituum te ayuda a seguir tus rutinas y descubrir nuevas inspiraciones.</p>
+        <a href="registro.html" class="cta">Comenzar ahora</a>
+      </div>
+    </section>
+
+<!-- Seccion de Rutinas -->
+    <section class="rutinas">
+      <h2 class="titulo-seccion">Rutinas destacadas</h2>
+      <div class="rutinas-grid" id="rutinas-container">
+        <!-- JS insertará tarjetas aquí -->
+      </div>
+    </section>
   </main>
 
   <footer>
-    &copy; 2025 Habbitum. Todos los derechos reservados.
+    <p>&copy; 2025 Habituum. Inspira y progresa.</p>
   </footer>
 
+  <script src="rutinas.js"></script>
+  <script src="mov_img.js"></script>
 </body>
 </html>
