@@ -4,27 +4,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Titulo de la pagina -->
   <title>Habituum - Crea y Comparte Hábitos</title>
   <link rel="stylesheet" href="estilos_inicio.css" />
 </head>
 <body>
-
+<!-- Header con el logo de la app, y los botones basicos de la esquina superior derecha -->
   <header>
     <div class="logo">Habituum</div>
     <nav>
-      <a href="#">Explorar</a>
-      <a href="#">Iniciar sesión</a>
+      <a href="login.html">Explorar</a>
+      <a href="login.html">Iniciar sesión</a>
       <a href="registro.html">Registrarse</a>
     </nav>
   </header>
 
+  <!-- Banner principal con las fotos que cambian cada tanto y el texto con el boton de comenzar-->
   <main>
+    <!-- Fotos del fondo del Banner -->
     <section class="banner">
       <div class="banner-slider">
         <img src="/docs/web/img/banner1.png" class="slide active" alt="">
-        <img src="/docs/web/img/banner2.png" class="slide active" alt="">
-        <img src="/docs/web/img/banner3.png" class="slide active" alt="">
+        <img src="/docs/web/img/banner2.png" class="slide" alt="">
+        <img src="/docs/web/img/banner3.png" class="slide" alt="">
       </div>
+      <!-- Texto de bienvenida y Botón de comenzar -->
       <div class="banner-text">
         <h1>Construye hábitos, comparte progreso</h1>
         <p>Habituum te ayuda a seguir tus rutinas y descubrir nuevas inspiraciones.</p>
@@ -34,17 +38,22 @@
 
 <!-- Seccion de Rutinas -->
     <section class="rutinas">
+      <!-- Titulo de la seccion Rutinas -->
       <h2 class="titulo-seccion">Rutinas destacadas</h2>
       <div class="rutinas-grid" id="rutinas-container">
         <!-- JS insertará tarjetas aquí -->
       </div>
     </section>
+    <!-- Futura Seccion de Habitos -->
+
   </main>
 
+  <!-- pie de web con el copyright -->
   <footer>
     <p>&copy; 2025 Habituum. Inspira y progresa.</p>
   </footer>
 
+  <!-- Scripts importados dentro de la misma carpeta -->
   <script src="rutinas.js"></script>
   <script src="/docs/web/mov_img.js"></script>
 </body>

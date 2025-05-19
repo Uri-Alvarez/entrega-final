@@ -3,7 +3,7 @@ const rutinas = [
     id: 1,
     titulo: "Mañanas Productivas",
     imagen: "img/manana.jpg",
-    miniRutinas: ["Despertar 6:00 am", "Leer 30 min", "Estiramientos"],
+    Habitos: ["Despertar 6:00 am", "Leer 30 min", "Estiramientos"],
     diasCompletados: 15,
     diasTotales: 30,
   },
@@ -11,7 +11,7 @@ const rutinas = [
     id: 2,
     titulo: "Noche Relajada",
     imagen: "img/noche.jpg",
-    miniRutinas: ["No usar pantalla 1h antes", "Leer ficción", "Meditar 10 min"],
+    Habitos: ["No usar pantalla 1h antes", "Leer ficción", "Meditar 10 min"],
     diasCompletados: 10,
     diasTotales: 21,
   },
@@ -19,7 +19,7 @@ const rutinas = [
     id: 3,
     titulo: "Rutina Fitness",
     imagen: "img/fitness.jpg",
-    miniRutinas: ["Ejercicio 30 min", "Beber 2L de agua", "Comida balanceada"],
+    Habitos: ["Ejercicio 30 min", "Beber 2L de agua", "Comida balanceada"],
     diasCompletados: 7,
     diasTotales: 30,
   }
@@ -38,8 +38,8 @@ function generarTarjeta(rutina) {
   titulo.textContent = rutina.titulo;
 
   const lista = document.createElement('ul');
-  lista.className = 'mini-rutinas';
-  rutina.miniRutinas.forEach(habito => {
+  lista.className = 'Habitos';
+  rutina.Habitos.forEach(habito => {
     const li = document.createElement('li');
     li.textContent = habito;
     lista.appendChild(li);
