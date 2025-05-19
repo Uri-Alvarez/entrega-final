@@ -189,6 +189,14 @@ footer {
   text-align: center;
 }
 
+/*
+.banner {
+  background-image: url('img/banner1.png');
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+}*/
+
 .banner-slider {
   position: absolute;
   top: 0; left: 0;
