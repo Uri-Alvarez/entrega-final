@@ -1,0 +1,121 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  color: #333;
+  margin: 0;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h2, h3 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+form input[type="text"],
+form input[type="url"],
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+#mini-rutinas-container {
+  margin-top: 10px;
+}
+
+.mini-rutina-item {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.mini-rutina-item input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.mini-rutina-item button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.mini-rutina-item button:hover {
+  background: #c0392b;
+}
+
+button[type="submit"],
+#agregar-mini {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px;
+  margin-top: 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+button[type="submit"]:hover,
+#agregar-mini:hover {
+  background: #2980b9;
+}
+
+.eliminar-mini {
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: red;
+}
+.eliminar-mini:hover {
+  background: #ffe6e6;
+  border-radius: 4px;
+}
+
+.btn-volver {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  background-color: #f0f0f0;
+  color: #333;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+.btn-volver:hover {
+  background-color: #ddd;
+}
