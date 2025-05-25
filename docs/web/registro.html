@@ -6,7 +6,17 @@
   <link rel="stylesheet" href="estilos_registro.css">
 </head>
 <body>
-    <!-- Supabase -->
+
+  <h2>Crear cuenta</h2>
+    <p>Únete a Habituum y comienza a construir tus hábitos hoy mismo.</p>
+  <form id="registro-form">
+    <input type="text" id="nombre" placeholder="Tu nombre" required>
+    <input type="email" id="email" placeholder="Correo electrónico" required>
+    <input type="password" id="password" placeholder="Contraseña" required>
+    <button type="submit">Registrarse</button>
+  </form>
+
+   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
     const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co'; // Reemplaza con tu URL
@@ -38,14 +48,6 @@
         window.location.href = "login.html";
       }
     });
-  </script>
-  
-  <h2>Crear cuenta</h2>
-  <form id="registro-form">
-    <input type="text" id="nombre" placeholder="Tu nombre" required>
-    <input type="email" id="email" placeholder="Correo electrónico" required>
-    <input type="password" id="password" placeholder="Contraseña" required>
-    <button type="submit">Registrarse</button>
-  </form>
+</script>
 </body>
 </html>
