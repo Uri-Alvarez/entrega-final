@@ -8,94 +8,102 @@
 </head>
 <body class="dashboard-body">
 
+  <!-- NAV / HEADER -->
   <nav class="dashboard-nav">
     <h1 class="logo">Habituum</h1>
     <ul>
-      <li><a href="#"></a></li>
       <li><a href="crear-rutina.html">Crear Rutina</a></li>
       <li><a href="#">Configuración</a></li>
-      <li><a href="login.html" id="cerrar-sesion">Cerrar sesión</a></li>
+      <li><a href="#" id="cerrar-sesion">Cerrar sesión</a></li>
     </ul>
   </nav>
 
+  <!-- MAIN CONTENT -->
   <main class="dashboard-main">
     <section class="bienvenida">
-      <h2>👋 Bienvenido, <span id="usuario-nombre">Usuario</span></h2>
+      <h2>👋 Bienvenido, <span id="usuario-nombre">Cargando...</span></h2>
       <p>Administra tus rutinas diarias, mantén el enfoque y comparte tu progreso.</p>
     </section>
 
     <section class="tus-rutinas">
-      <h3>📢 Rutinas disponibles</h3>
+      <h3>📢 Rutinas</h3>
       <div id="mis-rutinas" class="rutinas-grid">
-        <!-- Tarjetas generadas dinámicamente -->
+        <!-- Aquí se cargarán las rutinas dinámicamente -->
       </div>
     </section>
   </main>
 
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
     const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+  </script>
 
-document.addEventListener('DOMContentLoaded', async () => {
-      // ✅ Obtener usuario autenticado (v2)
-      const { data: { user }, error: authError } = await supabase.auth.getUser();
-      if (authError || !user) {
-        alert("Debes iniciar sesión.");
-        window.location.href = "/login.html";
+  <!-- Dashboard logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Obtener usuario autenticado
+      const { data: authData, error: authError } = await supabaseClient.auth.getUser();
+      if (authError || !authData?.user) {
+        alert("Debes iniciar sesión para acceder al dashboard.");
+        window.location.href = "login.html";
         return;
       }
 
-      document.getElementById('usuario-nombre').textContent = user.user_metadata?.nombre || user.email;
+      const userId = authData.user.id;
 
-      // ✅ Cargar rutinas sin filtro
-      const { data: rutinas, error: rutinasError } = await supabase
-        .from('rutinas')
-        .select(`
-          id, titulo, descripcion,
-          mini_rutinas (titulo, orden)
-        `);
+      // 2. Obtener nombre del usuario desde la tabla 'usuarios'
+      const { data: usuario, error: usuarioError } = await supabaseClient
+        .from('usuarios')
+        .select('nombre')
+        .eq('id', userId)
+        .single();
 
-      const contenedor = document.getElementById('mis-rutinas');
-      contenedor.innerHTML = '';
-
-      if (rutinasError) {
-        contenedor.innerHTML = '<p>Error al cargar rutinas.</p>';
-        console.error(rutinasError);
-        return;
+      if (usuarioError || !usuario) {
+        console.error("Error al obtener usuario:", usuarioError);
+        document.getElementById('usuario-nombre').textContent = "Usuario";
+      } else {
+        document.getElementById('usuario-nombre').textContent = usuario.nombre;
       }
 
-      for (const rutina of rutinas) {
+      // 3. Cargar rutinas reales desde Supabase
+    const contenedor = document.getElementById('mis-rutinas');
+    contenedor.innerHTML = "<p>Cargando rutinas...</p>";
+
+    const { data: rutinas, error: rutinasError } = await supabaseClient
+    .from('rutinas')
+    .select('titulo, descripcion');
+
+    if (rutinasError || !rutinas || rutinas.length === 0) {
+    contenedor.innerHTML = "<p>No se encontraron rutinas.</p>";
+    console.error("Error al obtener rutinas:", rutinasError);
+    } else {
+    contenedor.innerHTML = "";
+    rutinas.forEach(rutina => {
         const card = document.createElement('div');
         card.className = 'rutina-card';
 
-        const titulo = document.createElement('h3');
+        const titulo = document.createElement('h4');
         titulo.textContent = rutina.titulo;
 
         const descripcion = document.createElement('p');
         descripcion.textContent = rutina.descripcion;
 
-        const lista = document.createElement('ul');
-        rutina.mini_rutinas?.sort((a, b) => a.orden - b.orden).forEach(mini => {
-          const li = document.createElement('li');
-          li.textContent = mini.titulo;
-          lista.appendChild(li);
-        });
-
         card.appendChild(titulo);
         card.appendChild(descripcion);
-        card.appendChild(lista);
-
         contenedor.appendChild(card);
-      }
+    });
+    }
     });
 
-    // ✅ Cerrar sesión
+    // 4. Cerrar sesión
     document.getElementById('cerrar-sesion').addEventListener('click', async () => {
-      await supabase.auth.signOut();
+      await supabaseClient.auth.signOut();
       window.location.href = "login.html";
     });
   </script>
+
 </body>
 </html>
