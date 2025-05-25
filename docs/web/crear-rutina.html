@@ -31,26 +31,18 @@
       const titulo = document.getElementById('titulo').value.trim();
       const descripcion = document.getElementById('descripcion').value.trim();
 
-      // Obtener usuario autenticado
-      const { data: authData, error: authError } = await supabaseClient.auth.getUser();
-      if (authError || !authData?.user) {
-        alert("Debes iniciar sesión.");
-        window.location.href = "login.html";
-        return;
-      }
-
-      const creadorId = authData.user.id;
+      //No es necesario el ID del creador, se obtiene automáticamente del usuario autenticado
 
       // Insertar rutina
       const { error } = await supabaseClient
         .from('rutinas')
         .insert([
-          {
-            titulo: titulo,
-            descripcion: descripcion,
-            creador_id: creadorId
-          }
-        ]);
+        {
+          titulo: titulo,
+          descripcion: descripcion
+        }
+      ]);
+
 
       if (error) {
         console.error("Error al crear la rutina:", error);
