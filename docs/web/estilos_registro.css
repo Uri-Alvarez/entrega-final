@@ -16,22 +16,12 @@ form {
     width: 300px;
 }
 
-label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
 input {
     width: 90%;
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #c5e1e8;
     border-radius: 4px;
-}
-
-.error {
-    color: red;
-    font-size: 12px;
 }
 
 button {
@@ -46,10 +36,13 @@ button {
 
 button:hover {
     background: white;
+    color: blue;
+    border: 1px solid blue;
 }
 
-.oculto {
-    display: none;
+.error {
+    color: red;
+    font-size: 12px;
 }
 
 #mensaje-exito {
@@ -61,4 +54,8 @@ button:hover {
 #loader {
     margin-top: 10px;
     font-weight: bold;
+}
+
+.oculto {
+    display: none;
 }
