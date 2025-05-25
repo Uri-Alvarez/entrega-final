@@ -46,18 +46,14 @@
     <button type="submit">Registrarse</button>
   </form>
 
-  <!-- 1. Carga la librería de Supabase -->
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-  <!-- 2. Inicializa el cliente Supabase -->
   <script>
-    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co'; // ← reemplaza con tu URL
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';                     // ← reemplaza con tu clave anónima
+    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-  </script>
 
-  <!-- 3. Script de registro -->
-  <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('registro-form');
 
@@ -68,20 +64,37 @@
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        const { data, error } = await supabaseClient.auth.signUp({
+        // 1. Crear cuenta en Supabase Auth
+        const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({
           email,
-          password,
-          options: {
-            data: { nombre }
-          }
+          password
         });
 
-        if (error) {
-          alert("❌ Error al registrarse: " + error.message);
+        if (signUpError) {
+          alert("❌ Error al registrarse: " + signUpError.message);
+          return;
+        }
+
+        // 2. Obtener ID del usuario registrado
+        const userId = signUpData?.user?.id;
+        if (!userId) {
+          alert("❌ No se pudo obtener el ID del usuario.");
+          return;
+        }
+
+        // 3. Insertar en la tabla 'usuarios'
+        const { error: insertError } = await supabaseClient
+          .from('usuarios')
+          .insert([{ id: userId, nombre }]);
+
+        if (insertError) {
+          alert("⚠️ Usuario creado pero no se pudo guardar el nombre: " + insertError.message);
         } else {
           alert("✅ Registro exitoso. Revisa tu correo para confirmar tu cuenta.");
-          window.location.href = "login.html"; // Redirige a la página de inicio de sesión
         }
+
+        // 4. Redirigir al login
+        window.location.href = "login.html";
       });
     });
   </script>
