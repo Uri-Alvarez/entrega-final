@@ -12,14 +12,9 @@
     <h1 class="login-title">Iniciar sesión</h1>
 
     <form id="login-form">
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" name="email" required />
-
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" name="password" required />
-
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
       <button type="submit" class="btn-login">Ingresar</button>
-
       <p class="login-extra">
         ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a><br>
         <a href="recuperar.html">¿Olvidaste tu contraseña?</a>
@@ -27,6 +22,38 @@
     </form>
   </div>
 
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        alert("Error: " + error.message);
+      } else {
+        alert("Inicio de sesión exitoso");
+        window.location.href = "dashboard.html";
+      }
+    });
+  </script>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co'; // Reemplaza con tu URL
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';           // Reemplaza con tu clave pública
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+  </script>
   <script src="login.js"></script>
+  
+  <footer>
+    &copy; 2025 Habituum. Todos los derechos reservados.
+  </footer>
+
 </body>
 </html>

@@ -1,0 +1,132 @@
+.dashboard-body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #f8f9fa;
+  color: #333;
+}
+
+.dashboard-nav {
+  background-color: #4CAF50;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-nav .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.dashboard-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.dashboard-main {
+  padding: 2rem;
+}
+
+.bienvenida h2 {
+  margin-top: 0;
+}
+
+.tus-rutinas {
+  margin-top: 2rem;
+}
+
+.rutinas-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rutinas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.rutina-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+}
+
+.rutina-contenido {
+  padding: 1rem;
+  flex: 1;
+}
+
+.rutina-contenido h3 {
+  margin-top: 0;
+}
+
+.mini-rutinas {
+  padding-left: 1rem;
+  margin: 0.5rem 0;
+}
+
+.mini-rutinas li {
+  margin-bottom: 0.3rem;
+  list-style: disc;
+}
+
+.progreso {
+  margin-top: 0.5rem;
+}
+
+.cuadros-progreso {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  margin-top: 0.3rem;
+}
+
+.cuadro {
+  width: 12px;
+  height: 12px;
+  background-color: #ddd;
+  border-radius: 2px;
+}
+
+.cuadro.activo {
+  background-color: #4CAF50;
+}
+
+.rutina-img-lateral {
+  width: 150px;
+  object-fit: cover;
+}
+
+.boton-unirse {
+  margin-top: 0.8rem;
+  padding: 0.5rem 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.boton-unirse:hover {
+  background-color: #3e8e41;
+}

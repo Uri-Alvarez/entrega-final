@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Habituum - Dashboard</title>
+  <link rel="stylesheet" href="estilos_dashboard.css" />
+</head>
+<body class="dashboard-body">
+
+    <nav class="dashboard-nav">
+        <h1 class="logo">Habituum</h1>
+        <ul>
+        <li><a href="#">Mis Hábitos</a></li>
+        <li><a href="#">Crear Rutina</a></li>
+        <li><a href="#">Configuración</a></li>
+        <li><a href="login.html" id="cerrar-sesion">Cerrar sesión</a></li>
+        </ul>
+    </nav>
+
+    <main class="dashboard-main">
+        <section class="bienvenida">
+        <h2>👋 Bienvenido, <span id="usuario-nombre">Usuario</span></h2>
+        <p>Administra tus rutinas diarias, mantén el enfoque y comparte tu progreso.</p>
+        </section>
+
+        <section class="tus-rutinas">
+        <h3>📢 Rutinas disponibles</h3>
+        <div id="mis-rutinas" class="rutinas-grid">
+            <!-- Tarjetas generadas dinámicamente -->
+        </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('cerrar-sesion').addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            window.location.href = "login.html";
+        });
+    </script>
+
+  <!-- Script para el supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+  </script>
+  <script src="supabase.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
