@@ -1,103 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
-<link rel="stylesheet" href="estilos_rutinas.css">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Crear Rutina</title>
-  <style>
-    body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
-    input, textarea, button { width: 100%; margin-top: 10px; padding: 8px; }
-    .mini-rutina-item { margin-top: 5px; display: flex; gap: 5px; }
-    .mini-rutina-item input { flex: 1; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crear Rutina - Habituum</title>
+  <link rel="stylesheet" href="estilos_rutinas.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
 
-  <h2>Crear una nueva rutina</h2>
-  <a href="dashboard.html" class="btn-volver">← Volver al Dashboard</a>
+  <h1>📝 Crear Nueva Rutina</h1>
 
-  <form id="rutina-form">
-    <input type="text" id="titulo" placeholder="Título de la rutina" required>
-    <textarea id="descripcion" placeholder="Descripción" required></textarea>
-
-    <h3>Mini-rutinas</h3>
-    <div id="mini-rutinas-container"></div>
-    <button type="button" id="agregar-mini">Agregar mini-rutina</button>
-
-    <button type="submit">Guardar rutina</button>
+  <form id="form-crear-rutina">
+    <input type="text" id="titulo" placeholder="Título de la rutina" required />
+    <textarea id="descripcion" rows="5" placeholder="Descripción de la rutina" required></textarea>
+    <button type="submit">Guardar Rutina</button>
   </form>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <br/>
+  <button onclick="window.location.href='dashboard.html'">⬅️ Volver al Dashboard</button>
+
   <script>
-    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co'; // ← reemplaza con tu URL
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';                     // ← reemplaza con tu clave anónima
+    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-    const miniContainer = document.getElementById('mini-rutinas-container');
-    const agregarMini = document.getElementById('agregar-mini');
-
-
-    // Agrega campos dinámicos
-    agregarMini.addEventListener('click', () => {
-      const div = document.createElement('div');
-      div.className = 'mini-rutina-item';
-      div.innerHTML = `
-      <input type="text" placeholder="Título de mini-rutina" required>
-      <button type="button" class="eliminar-mini">❌</button>
-    `;
-      miniContainer.appendChild(div);
-    });
-
-    // Enviar el formulario
-    document.getElementById('rutina-form').addEventListener('submit', async (e) => {
+    document.getElementById('form-crear-rutina').addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const titulo = document.getElementById('titulo').value;
-      const descripcion = document.getElementById('descripcion').value;
+      const titulo = document.getElementById('titulo').value.trim();
+      const descripcion = document.getElementById('descripcion').value.trim();
 
-      const { data: userData, error: authError } = await supabase.auth.getUser();
-      const user = userData?.user;
-      if (authError || !user) {
-        alert("Debes estar logueado para crear una rutina.");
+      // Obtener usuario autenticado
+      const { data: authData, error: authError } = await supabaseClient.auth.getUser();
+      if (authError || !authData?.user) {
+        alert("Debes iniciar sesión.");
+        window.location.href = "login.html";
         return;
       }
 
-      // 1. Insertar rutina
-      const { data: rutina, error: rutinaError } = await supabase
+      const creadorId = authData.user.id;
+
+      // Insertar rutina
+      const { error } = await supabaseClient
         .from('rutinas')
-        .insert({
-          titulo,
-          descripcion,
-          creador_id: user.id
-        })
-        .select()
-        .single();
+        .insert([
+          {
+            titulo: titulo,
+            descripcion: descripcion,
+            creador_id: creadorId
+          }
+        ]);
 
-      if (rutinaError) {
-        alert("Error al crear rutina: " + rutinaError.message);
-        return;
-      }
-
-      // 2. Insertar mini-rutinas
-      const miniInputs = miniContainer.querySelectorAll('input');
-      const miniRutinas = Array.from(miniInputs).map((input, i) => ({
-        titulo: input.value,
-        rutina_id: rutina.id,
-        orden: i + 1
-      }));
-
-      const { error: miniError } = await supabase
-        .from('mini_rutinas')
-        .insert(miniRutinas);
-
-      if (miniError) {
-        alert("Error al guardar mini-rutinas: " + miniError.message);
+      if (error) {
+        console.error("Error al crear la rutina:", error);
+        alert("Hubo un error al guardar la rutina.");
       } else {
-        alert("¡Rutina creada con éxito!");
+        alert("Rutina creada correctamente.");
         window.location.href = "dashboard.html";
       }
     });
   </script>
+
 </body>
 </html>
