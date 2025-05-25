@@ -2,58 +2,83 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Habituum - Iniciar sesión</title>
-  <link rel="stylesheet" href="estilos_login.css" />
+  <title>Iniciar sesión - Habituum</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f0f0f0;
+    }
+    form {
+      background: #fff;
+      padding: 24px;
+      border-radius: 8px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #2196F3;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1976D2;
+    }
+  </style>
 </head>
-<body class="login-body">
+<body>
+  <h2>Inicia sesión en Habituum</h2>
 
-  <div class="login-container">
-    <h1 class="login-title">Iniciar sesión</h1>
+  <form id="login-form">
+    <input type="email" id="email" placeholder="Correo electrónico" required />
+    <input type="password" id="password" placeholder="Contraseña" required />
+    <button type="submit">Iniciar sesión</button>
+  </form>
 
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Correo electrónico" required>
-      <input type="password" id="password" placeholder="Contraseña" required>
-      <button type="submit" class="btn-login">Ingresar</button>
-      <p class="login-extra">
-        ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a><br>
-        <a href="recuperar.html">¿Olvidaste tu contraseña?</a>
-      </p>
-    </form>
-  </div>
-
-  <script>
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) {
-        alert("Error: " + error.message);
-      } else {
-        alert("Inicio de sesión exitoso");
-        window.location.href = "dashboard.html";
-      }
-    });
-  </script>
-
-  
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+  <!-- Inicializar Supabase -->
   <script>
-    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co'; // Reemplaza con tu URL
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';           // Reemplaza con tu clave pública
+    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co'; // ← reemplaza aquí
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';                     // ← y aquí
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
   </script>
-  <script src="login.js"></script>
-  
-  <footer>
-    &copy; 2025 Habituum. Todos los derechos reservados.
-  </footer>
 
+  <!-- Lógica de login -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('login-form');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          alert("❌ Error: " + error.message);
+        } else {
+          alert("✅ Sesión iniciada con éxito");
+          window.location.href = "dashboard.html"; // o la página principal del usuario
+        }
+      });
+    });
+</script>
 </body>
 </html>

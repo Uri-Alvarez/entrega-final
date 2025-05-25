@@ -1,53 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Registro</title>
-  <link rel="stylesheet" href="estilos_registro.css">
+  <meta charset="UTF-8" />
+  <title>Registro - Habituum</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f0f0f0;
+    }
+    form {
+      background: #fff;
+      padding: 24px;
+      border-radius: 8px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
+  <h2>Crear cuenta en Habituum</h2>
 
-  <h2>Crear cuenta</h2>
-    <p>Únete a Habituum y comienza a construir tus hábitos hoy mismo.</p>
   <form id="registro-form">
-    <input type="text" id="nombre" placeholder="Tu nombre" required>
-    <input type="email" id="email" placeholder="Correo electrónico" required>
-    <input type="password" id="password" placeholder="Contraseña" required>
+    <input type="text" id="nombre" placeholder="Nombre completo" required />
+    <input type="email" id="email" placeholder="Correo electrónico" required />
+    <input type="password" id="password" placeholder="Contraseña" required />
     <button type="submit">Registrarse</button>
   </form>
 
-   <!-- Supabase -->
+  <!-- 1. Carga la librería de Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+  <!-- 2. Inicializa el cliente Supabase -->
   <script>
-const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co'; // Reemplaza con tu URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';           // Reemplaza con tu clave pública
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseUrl = 'https://uyandldhylkhzqcpoygt.supabase.co'; // ← reemplaza con tu URL
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5YW5kbGRoeWxraHpxY3BveWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjY4OTIsImV4cCI6MjA2MjA0Mjg5Mn0.TFodK54rV4B8hgLyh0oAu9wwZWWCv5dBRC793E4DHlo';                     // ← reemplaza con tu clave anónima
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
   </script>
 
-  <!-- Script de registro -->
+  <!-- 3. Script de registro -->
   <script>
-    document.getElementById('registro-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('registro-form');
 
-      const nombre = document.getElementById('nombre').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { nombre }
+        const nombre = document.getElementById('nombre').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { nombre }
+          }
+        });
+
+        if (error) {
+          alert("❌ Error al registrarse: " + error.message);
+        } else {
+          alert("✅ Registro exitoso. Revisa tu correo para confirmar tu cuenta.");
+          window.location.href = "login.html"; // Redirige a la página de inicio de sesión
         }
       });
-
-      if (error) {
-        alert("❌ Error: " + error.message);
-      } else {
-        alert("✅ Registro exitoso. Revisa tu correo para confirmar tu cuenta.");
-        window.location.href = "login.html";
-      }
     });
-</script>
+  </script>
 </body>
 </html>
