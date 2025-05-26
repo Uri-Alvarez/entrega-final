@@ -30,7 +30,6 @@ function generarTarjeta(rutina) {
   card.className = 'rutina-card';
   card.setAttribute('data-rutina-id', rutina.id);
 
-  // Contenido textual
   const contenido = document.createElement('div');
   contenido.className = 'rutina-contenido';
 
@@ -66,20 +65,10 @@ function generarTarjeta(rutina) {
   progreso.appendChild(textoProgreso);
   progreso.appendChild(barra);
 
-  const boton = document.createElement('button');
-  boton.className = 'btn-unirse';
-  boton.textContent = 'Unirme a la rutina';
-  boton.onclick = () => {
-    alert(`Te has unido a: ${rutina.titulo}`);
-    // Aquí podrías hacer una llamada a Supabase más adelante
-  };
-
   contenido.appendChild(titulo);
   contenido.appendChild(lista);
   contenido.appendChild(progreso);
-  contenido.appendChild(boton);
 
-  // Imagen lateral
   const imagen = document.createElement('img');
   imagen.src = rutina.imagen;
   imagen.alt = rutina.titulo;
@@ -90,6 +79,7 @@ function generarTarjeta(rutina) {
 
   return card;
 }
+
 
 function cargarRutinas() {
   const contenedor = document.getElementById('rutinas-container');
