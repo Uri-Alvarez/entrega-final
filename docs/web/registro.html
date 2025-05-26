@@ -83,9 +83,10 @@
         }
 
         // 3. Insertar en la tabla 'usuarios'
-        const { error: insertError } = await supabaseClient
-          .from('usuarios')
-          .insert([{ id: userId, nombre }]);
+       const { error: insertError } = await supabaseClient
+        .from('usuarios')
+        .insert([{ id: userId, nombre, email }]);
+
 
         if (insertError) {
           alert("⚠️ Usuario creado pero no se pudo guardar el nombre: " + insertError.message);
