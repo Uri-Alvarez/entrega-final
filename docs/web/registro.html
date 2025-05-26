@@ -85,7 +85,7 @@
         // 3. Insertar en la tabla 'usuarios'
        const { error: insertError } = await supabaseClient
         .from('usuarios')
-        .insert([{ id: userId, nombre, email }]);
+        .insert([{ id: userId, nombre, email, password}]);
 
 
         if (insertError) {
