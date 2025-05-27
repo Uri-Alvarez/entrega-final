@@ -14,6 +14,16 @@
   <form id="form-crear-rutina">
     <input type="text" id="titulo" placeholder="Título de la rutina" required />
     <textarea id="descripcion" rows="5" placeholder="Descripción de la rutina" required></textarea>
+    <label for="imagen-select">Selecciona una imagen:</label>
+    <select id="imagen-select" required>
+      <option value="img/manana.jpg">Mañana</option>
+      <option value="img/noche.jpg">Noche</option>
+      <option value="img/fitness.jpg">Fitness</option>
+      <option value="img/estudiando.jpg">Estudio</option>
+      <option value="img/relax.png">Relax</option>
+      <option value="img/despertar.png">Despertar</option>
+      <option value="img/desayuno.jpg">Desayuno Sano</option>
+    </select>
     <button type="submit">Guardar Rutina</button>
   </form>
 
@@ -30,6 +40,7 @@
 
       const titulo = document.getElementById('titulo').value.trim();
       const descripcion = document.getElementById('descripcion').value.trim();
+       const imagen_url = document.getElementById('imagen-select').value;
 
       //No es necesario el ID del creador, se obtiene automáticamente del usuario autenticado
 
@@ -39,7 +50,8 @@
         .insert([
         {
           titulo: titulo,
-          descripcion: descripcion
+          descripcion: descripcion,
+          imagen_url : imagen_url
         }
       ]);
 

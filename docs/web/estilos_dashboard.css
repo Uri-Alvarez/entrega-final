@@ -1,3 +1,4 @@
+/* GENERAL */
 .dashboard-body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f2f5;
@@ -6,6 +7,7 @@
   color: #333;
 }
 
+/* NAV / HEADER */
 .dashboard-nav {
   background-color: #2c3e50;
   color: #ecf0f1;
@@ -41,6 +43,7 @@
   color: #1abc9c;
 }
 
+/* MAIN CONTENT */
 .dashboard-main {
   max-width: 1200px;
   margin: 30px auto;
@@ -64,65 +67,101 @@
   color: #2c3e50;
 }
 
-/* Grid de rutinas */
+/* GRID DE RUTINAS */
 #mis-rutinas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 25px;
 }
 
-/* Tarjeta de rutina */
+/* TARJETA DE RUTINA CON FONDO DE IMAGEN */
 .rutina-card {
-  background-color: #fff;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
+  height: 250px;
+  overflow: hidden;
   transition: box-shadow 0.3s ease;
-  cursor: default;
 }
 
-.rutina-card:hover {
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+.rutina-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45); /* Oscurece la imagen para que el texto sea legible */
+  z-index: 0;
 }
 
-.rutina-card h3 {
-  margin: 0 0 12px 0;
+/* Contenido encima del fondo */
+.rutina-contenido {
+  position: relative;
+  z-index: 1;
+}
+
+.rutina-contenido h4 {
+  margin: 0 0 10px 0;
   font-size: 1.3rem;
-  color: #34495e;
+  color: #fff;
 }
 
-.rutina-card p {
-  flex-grow: 1;
+.rutina-contenido p {
   font-size: 1rem;
-  color: #666;
-  margin-bottom: 15px;
-  line-height: 1.4;
+  color: #f0f0f0;
+  margin-bottom: 12px;
 }
 
-/* Lista mini-rutinas */
+/* BOTONES */
+.btn-container {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-editar,
+.btn-eliminar {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  z-index: 1;
+}
+
+.btn-editar {
+  background-color: #27ae60;
+  color: white;
+}
+
+.btn-eliminar {
+  background-color: #c0392b;
+  color: white;
+}
+
+/* OTROS ELEMENTOS (opcional) */
 .mini-rutinas {
   list-style-type: disc;
   padding-left: 18px;
   margin: 0 0 15px 0;
-  color: #555;
+  color: #ddd;
   font-size: 0.9rem;
 }
 
-.mini-rutinas li {
-  margin-bottom: 6px;
-}
-
-/* Progreso */
 .progreso {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 15px;
   font-size: 0.9rem;
-  color: #333;
+  color: #fff;
+  margin-bottom: 10px;
 }
 
 .cuadros-progreso {
@@ -141,7 +180,6 @@
   background-color: #1abc9c;
 }
 
-/* Botón Unirse */
 .boton-unirse {
   align-self: flex-start;
   padding: 8px 15px;
@@ -158,31 +196,31 @@
   background-color: #159a82;
 }
 
-/* Imagen lateral en la tarjeta (si se usa) */
-.rutina-img-lateral {
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
-  object-fit: cover;
-  margin-top: 15px;
-  align-self: center;
+.rutina-card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 250px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
 }
 
-.btn-editar,
-.btn-eliminar {
-  margin: 5px 5px 0 0;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.rutina-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.40); /* Oscurece la imagen para que el texto sea legible */
+  z-index: 0;
 }
 
-.btn-editar {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.btn-eliminar {
-  background-color: #f44336;
-  color: white;
+.rutina-contenido {
+  position: relative;
+  z-index: 1;
 }

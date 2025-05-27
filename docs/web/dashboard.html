@@ -74,7 +74,7 @@
 
     const { data: rutinas, error: rutinasError } = await supabaseClient
     .from('rutinas')
-    .select('titulo, descripcion');
+    .select('titulo, descripcion,imagen_url');
 
     if (rutinasError || !rutinas || rutinas.length === 0) {
     contenedor.innerHTML = "<p>No se encontraron rutinas.</p>";
@@ -82,14 +82,27 @@
     } else {
     contenedor.innerHTML = "";
     rutinas.forEach(rutina => {
+    // Crear tarjeta para cada rutina
     const card = document.createElement('div');
     card.className = 'rutina-card';
+    card.style.backgroundImage = `url('${rutina.imagen_url}')`;
 
+    // Crear elementos dentro de la tarjeta
     const titulo = document.createElement('h4');
     titulo.textContent = rutina.titulo;
 
+    // Descripción
     const descripcion = document.createElement('p');
     descripcion.textContent = rutina.descripcion;
+    
+    // Imagen
+    /*
+    const imagen = document.createElement('img');
+    imagen.src = rutina.imagen_url;
+    imagen.alt = rutina.titulo;
+    imagen.className = 'imagen-rutina';
+    card.appendChild(imagen);
+    */
 
     // Contenedor de botones
     const botonesContainer = document.createElement('div');
@@ -155,6 +168,8 @@
     card.appendChild(botonesContainer);
 
   contenedor.appendChild(card);
+
+
   });
     }
     });
