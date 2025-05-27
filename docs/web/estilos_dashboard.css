@@ -167,3 +167,22 @@
   margin-top: 15px;
   align-self: center;
 }
+
+.btn-editar,
+.btn-eliminar {
+  margin: 5px 5px 0 0;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-editar {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-eliminar {
+  background-color: #f44336;
+  color: white;
+}

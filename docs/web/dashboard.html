@@ -82,19 +82,80 @@
     } else {
     contenedor.innerHTML = "";
     rutinas.forEach(rutina => {
-        const card = document.createElement('div');
-        card.className = 'rutina-card';
+    const card = document.createElement('div');
+    card.className = 'rutina-card';
 
-        const titulo = document.createElement('h4');
-        titulo.textContent = rutina.titulo;
+    const titulo = document.createElement('h4');
+    titulo.textContent = rutina.titulo;
 
-        const descripcion = document.createElement('p');
-        descripcion.textContent = rutina.descripcion;
+    const descripcion = document.createElement('p');
+    descripcion.textContent = rutina.descripcion;
 
-        card.appendChild(titulo);
-        card.appendChild(descripcion);
-        contenedor.appendChild(card);
-    });
+    // Contenedor de botones
+    const botonesContainer = document.createElement('div');
+    botonesContainer.style.display = 'flex';
+    botonesContainer.style.gap = '10px'; // espacio entre botones
+    botonesContainer.style.marginTop = '10px';
+
+    // Botón Editar
+    const btnEditar = document.createElement('button');
+    btnEditar.textContent = 'Editar';
+    btnEditar.className = 'btn-editar';
+    btnEditar.style.flex = '1';
+    btnEditar.onclick = async () => {
+      const nuevoTitulo = prompt("Nuevo título:", rutina.titulo);
+      const nuevaDescripcion = prompt("Nueva descripción:", rutina.descripcion);
+
+      if (nuevoTitulo && nuevaDescripcion) {
+        const { error: updateError } = await supabaseClient
+          .from('rutinas')
+          .update({ titulo: nuevoTitulo, descripcion: nuevaDescripcion })
+          .eq('titulo', rutina.titulo);
+
+        if (updateError) {
+          alert("Error al actualizar la rutina.");
+          console.error(updateError);
+        } else {
+          alert("Rutina actualizada.");
+          location.reload();
+        }
+      }
+    };
+
+    // Botón Eliminar
+    const btnEliminar = document.createElement('button');
+    btnEliminar.textContent = 'Eliminar';
+    btnEliminar.className = 'btn-eliminar';
+    btnEliminar.style.flex = '1';
+    btnEliminar.onclick = async () => {
+      const confirmar = confirm(`¿Estás seguro de eliminar "${rutina.titulo}"?`);
+      if (confirmar) {
+        const { error: deleteError } = await supabaseClient
+          .from('rutinas')
+          .delete()
+          .eq('titulo', rutina.titulo);
+
+        if (deleteError) {
+          alert("Error al eliminar la rutina.");
+          console.error(deleteError);
+        } else {
+          alert("Rutina eliminada.");
+          location.reload();
+        }
+      }
+    };
+
+    // Agregar botones al contenedor
+    botonesContainer.appendChild(btnEditar);
+    botonesContainer.appendChild(btnEliminar);
+
+    // Agregar elementos al card
+    card.appendChild(titulo);
+    card.appendChild(descripcion);
+    card.appendChild(botonesContainer);
+
+  contenedor.appendChild(card);
+  });
     }
     });
 
@@ -104,6 +165,8 @@
       window.location.href = "login.html";
     });
   </script>
+
+  <script src="dashboard.js"></script>
 
 </body>
 </html>
