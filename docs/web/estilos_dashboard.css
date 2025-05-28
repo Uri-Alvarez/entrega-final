@@ -1,7 +1,7 @@
 /* GENERAL */
 .dashboard-body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5;
+  background-color: #F6F1E9;
   margin: 0;
   padding: 0;
   color: #333;
@@ -9,7 +9,7 @@
 
 /* NAV / HEADER */
 .dashboard-nav {
-  background-color: #2c3e50;
+  background-color: #3F573E;
   color: #ecf0f1;
   display: flex;
   justify-content: space-between;

@@ -2,42 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Registro - Habituum</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background: #f0f0f0;
-    }
-    form {
-      background: #fff;
-      padding: 24px;
-      border-radius: 8px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin: 12px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
+  <link rel="stylesheet" href="estilos_registro.css" />
+  <!-- NAV / HEADER -->
+  <nav class="dashboard-nav">
+    <h1 class="logo">Habituum</h1>
+  </nav>
+  <h1 class="titulo-registro">Registro - Habituum</h1>
 </head>
 <body>
-  <h2>Crear cuenta en Habituum</h2>
+  <h2 class="titulo-registro2">Crear cuenta en Habituum</h2>
 
   <form id="registro-form">
     <input type="text" id="nombre" placeholder="Nombre completo" required />
